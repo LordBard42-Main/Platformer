@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
+    [Header("Camera Target and Speed")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float cameraSpeed = 5;
-    private Vector3 temp;
 
+    [Header("Camera Travel Borders")]
     [SerializeField] private float currentXMax = 0;
     [SerializeField] private float currentXMin = 0;
     [SerializeField] private float currentYMax = 0;
     [SerializeField] private float currentYMin = 10;
+
+    private Vector3 temp;
 
     // Start is called before the first frame update
     void Start()

@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -85,7 +86,7 @@ GameObject:
   - component: {fileID: 5387835515526901244}
   m_Layer: 0
   m_Name: Scene Fader
-  m_TagString: Scene_Fader
+  m_TagString: Scene_Handler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

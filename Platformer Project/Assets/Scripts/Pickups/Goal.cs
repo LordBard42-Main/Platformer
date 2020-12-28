@@ -48,7 +48,6 @@ public class Goal : MonoBehaviour
 
         tempPos = posOffset;
         tempPos.y += Mathf.Sin(Time.time * Mathf.PI * frequency) * amplitude;
-        Debug.Log(tempPos);
         transform.position = tempPos;
 
     }

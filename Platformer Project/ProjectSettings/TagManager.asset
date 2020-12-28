@@ -8,8 +8,8 @@ TagManager:
   - Obstacle
   - Wall
   - Ground
-  - Scene_Fader
   - Color_Queue
+  - Scene_Handler
   layers:
   - Default
   - TransparentFX
@@ -46,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1914693813
     locked: 0
   - name: Wall
     uniqueID: 1585319705
