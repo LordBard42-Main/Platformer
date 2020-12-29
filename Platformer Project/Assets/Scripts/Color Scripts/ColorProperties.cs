@@ -10,14 +10,14 @@ public enum SecondaryColors { Green, Orange, Purple}
 public class ColorProperties : MonoBehaviour
 {
 
-   
-
-    private new SpriteRenderer renderer;
-
+    [Header("Changeable Color Properties")]
     [SerializeField] private bool setColor;
     [SerializeField] private PrimaryColors currentColor;
 
+    private new SpriteRenderer renderer;
+
     public PrimaryColors CurrentColor { get => currentColor; set => currentColor = value; }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -46,6 +46,10 @@ public class ColorProperties : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Updates the objects color and the layer its on
+    /// </summary>
+    /// <param name="value"></param>
     public void UpdateColor(int value)
     {
         currentColor = (PrimaryColors)value;
