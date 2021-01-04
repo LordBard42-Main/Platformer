@@ -25,12 +25,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Doesnt let Camera Go past edge of the world
-        temp.x = Mathf.Clamp(playerTransform.position.x, currentXMin, currentXMax);
-        temp.y = Mathf.Clamp(playerTransform.position.y, currentYMin, currentYMax);
-        temp.z = -10;
-
-        transform.position = Vector3.Lerp(transform.position, temp, Time.deltaTime * cameraSpeed);
+        UpdateCameraPosition();
         
     }
 
@@ -47,6 +42,17 @@ public class CameraController : MonoBehaviour
         currentXMax = maxX;
         currentYMin = minY;
         currentYMax = maxY;
+    }
+
+    public void UpdateCameraPosition()
+    {
+        //Doesnt let Camera Go past edge of the world
+        temp.x = Mathf.Clamp(playerTransform.position.x, currentXMin, currentXMax);
+        temp.y = Mathf.Clamp(playerTransform.position.y, currentYMin, currentYMax);
+        temp.z = -10;
+
+        transform.position = Vector3.Lerp(transform.position, temp, Time.deltaTime * cameraSpeed);
+
     }
 
 }

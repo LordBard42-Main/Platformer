@@ -14,6 +14,7 @@ public class ColorProperties : MonoBehaviour
     [SerializeField] private bool setColor;
     [SerializeField] private PrimaryColors currentColor;
 
+
     private new SpriteRenderer renderer;
 
     public PrimaryColors CurrentColor { get => currentColor; set => currentColor = value; }
