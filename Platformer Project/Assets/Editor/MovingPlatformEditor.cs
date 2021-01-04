@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-public class ColorQueueEditor : MonoBehaviour
+public class MovingPlatformEditor : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -21,23 +21,27 @@ public class ColorQueueEditor : MonoBehaviour
 
 
 // Tells Unity to use this Editor class with the WaveManager script component.
-[CustomEditor(typeof(ColorQueue))]
+[CustomEditor(typeof(MovingFloor))]
 [CanEditMultipleObjects]
-public class ScheduleEditor : Editor
+public class MovingFloorEditor : Editor
 {
 
     // This is Data
-    SerializedProperty colorSlots;
+    SerializedProperty nodes;
+    private MovingFloor movingFloor;
     bool foldoutFlag;
 
     ReorderableList list;
 
     private void OnEnable()
     {
-        // Get the <wave> array from WaveManager, in SerializedProperty form.
-        colorSlots = serializedObject.FindProperty("colorSlots");
 
-        list = new ReorderableList(serializedObject, colorSlots, true, true, true, true);
+        movingFloor = target as MovingFloor;
+
+        // Get the <wave> array from WaveManager, in SerializedProperty form.
+        nodes = serializedObject.FindProperty("nodes");
+
+        list = new ReorderableList(serializedObject, nodes, true, true, true, true);
 
 
         list.drawElementCallback = DrawListItems;
@@ -48,23 +52,44 @@ public class ScheduleEditor : Editor
     void DrawListItems(Rect rect, int index, bool isActive, bool isFocused)
     {
         SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index); // The element in the list
-        SerializedProperty element2 = element.FindPropertyRelative("currentColor");
+        SerializedProperty element2 = element.FindPropertyRelative("location");
+        SerializedProperty element3 = element.FindPropertyRelative("index");
+
         
         EditorGUI.PropertyField
             (
-            new Rect(rect.x + 130, rect.y, 160, EditorGUIUtility.singleLineHeight),
+            new Rect(rect.x + 140, rect.y, 160, EditorGUIUtility.singleLineHeight),
             element2,
             GUIContent.none
             );
 
+        EditorGUI.PropertyField
+            (
+            new Rect(rect.x + 35, rect.y, 30, EditorGUIUtility.singleLineHeight),
+            element3,
+            GUIContent.none
+            );
 
         EditorGUI.LabelField(new Rect(rect.x, rect.y, 130, EditorGUIUtility.singleLineHeight),
-          ("Color: "));
+          ("Index: "));
+
+        EditorGUI.LabelField(new Rect(rect.x + 75, rect.y, 130, EditorGUIUtility.singleLineHeight),
+          ("Location: "));
+
+        //Set Preset Data
+        element3.intValue = index;
+
+        if(index == 0 && !Application.isPlaying)
+        {
+            element2.vector2Value = movingFloor.transform.position;
+        }
     }
+
+    
 
     void DrawHeader(Rect rect)
     {
-        string name = "Color Queue List";
+        string name = "Path Node List";
         EditorGUI.LabelField(rect, name);
     }
 

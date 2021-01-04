@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.tag == "Ground")
+        if (collision.tag == "Ground" || collision.tag == "Wall")
         {
             isGrounded = true;
             Debug.Log("Setting Grounded");
