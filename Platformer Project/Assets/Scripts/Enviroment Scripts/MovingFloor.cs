@@ -8,7 +8,6 @@ public class MovingFloor : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private bool isMoving;
-    
     [SerializeField] [HideInInspector] private PlatformNodes[] nodes; //I need to serialize this to make it visuble in the custom inspector
     
 
@@ -22,6 +21,8 @@ public class MovingFloor : MonoBehaviour
     private Vector2 currentPosition;
     private Vector2 targetPosition;
 
+    public bool PlayerIsOn { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,6 @@ public class MovingFloor : MonoBehaviour
 
         for (int i = nodes.Length - 1; i >= 0; i--)
         {
-            Debug.Log(i);
             toPath.Push(nodes[i].location);
         }
     }
@@ -55,7 +55,6 @@ public class MovingFloor : MonoBehaviour
             moveTimeCurrent += Time.deltaTime;
             if (moveTimeCurrent > moveTimeTotal)
                 moveTimeCurrent = moveTimeTotal;
-            Debug.Log(currentPosition);
             if (isForward)
             {
                 transform.position = Vector2.Lerp(currentPosition, toPath.Peek(), moveTimeCurrent / moveTimeTotal);
@@ -115,6 +114,25 @@ public class MovingFloor : MonoBehaviour
         {
             collision.transform.parent.parent = null;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            PlayerIsOn = true;
+        }
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            PlayerIsOn = false;
+        }
+
+
     }
 
     /// <summary>

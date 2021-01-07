@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - Color_Queue
   - Scene_Handler
+  - Shooter_AI
   layers:
   - Default
   - TransparentFX
@@ -50,9 +51,9 @@ TagManager:
   - name: Player
     uniqueID: 1914693813
     locked: 0
-  - name: Wall
-    uniqueID: 1585319705
-    locked: 0
   - name: Floor
     uniqueID: 790430765
+    locked: 0
+  - name: Wall
+    uniqueID: 1585319705
     locked: 0
