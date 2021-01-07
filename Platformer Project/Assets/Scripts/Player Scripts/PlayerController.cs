@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private int movementX;
     private int movementY;
     private bool jump;
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
 
     public ColorProperties ColorProperties { get; private set; }
 
@@ -54,11 +54,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         movementX = (int)Input.GetAxisRaw("Horizontal");
-        Debug.Log(camera);
         vectorTowardsMouse = camera.ScreenToWorldPoint(Input.mousePosition) + new Vector3(0, 0, 10) - gunObject.transform.position;
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             jump = true;
         }
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(transform.right * thrustX * movementX);
         
-        if(jump && isGrounded)
+        if(jump)
         {
             rb.AddForce(transform.up * thrustY * 100);
             jump = false;
@@ -98,7 +97,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.tag == "Ground" || collision.tag == "Wall")
+        if (collision.tag == "Ground")
         {
             isGrounded = true;
             Debug.Log("Setting Grounded");
@@ -115,20 +114,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        
-
+        if (collision.tag == "Ground")
+        {
+            isGrounded = true;
+        }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.collider.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isGrounded = false;
         }
-
     }
+    
 
     /// <summary>
     /// Move Mouse wheel to scroll through colors

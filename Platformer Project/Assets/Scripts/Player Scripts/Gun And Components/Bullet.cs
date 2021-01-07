@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Ground" || collision.collider.tag == "Wall")
+        if(collision.collider.tag == "Ground" || collision.collider.tag == "Wall" || collision.collider.tag == "Player")
         {
             if (collision.collider.TryGetComponent(out ColorProperties colorProperties))
             {
