@@ -30,7 +30,7 @@ public class AIGun : MonoBehaviour
     {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Physics2D.IgnoreCollision(bullet.GetComponent<BoxCollider2D>(), owner.GetComponent<BoxCollider2D>());
-            bullet.GetComponent<ColorProperties>().UpdateColor(color);
+            //bullet.GetComponent<ColorProperties>().UpdateColor(color);
 
         bullet.transform.localScale = transform.localScale / 1.5f;
             

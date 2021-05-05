@@ -6,6 +6,7 @@ public class ShooterAI : MonoBehaviour
 {
 
     [SerializeField] private Transform target;
+    [SerializeField] private LayerMask layerMask;
     private Vector2 vectorTowardsPlayer;
 
     ///AI Gun Components
@@ -32,7 +33,8 @@ public class ShooterAI : MonoBehaviour
         if (target != null)
         {
             vectorTowardsPlayer = target.position - gunObject.transform.position;
-            if(!reloading)
+
+            if(!reloading && CheckLineOfSight())
                 StartCoroutine(Shoot());
         }
 
@@ -40,7 +42,7 @@ public class ShooterAI : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
@@ -65,6 +67,20 @@ public class ShooterAI : MonoBehaviour
         gunObject.transform.position = transform.position;
         gunObject.GetComponent<Rigidbody2D>().rotation = angle;
 
+
+    }
+
+    private bool CheckLineOfSight()
+    {
+       RaycastHit2D hit = Physics2D.Raycast(transform.position, vectorTowardsPlayer, Mathf.Infinity, layerMask);
+        Debug.DrawRay(transform.position, vectorTowardsPlayer);
+        Debug.Log(hit.collider);
+        if(hit != null) 
+            return hit.collider.tag == "Player";
+        else
+        {
+            return false;
+        }
 
     }
 
